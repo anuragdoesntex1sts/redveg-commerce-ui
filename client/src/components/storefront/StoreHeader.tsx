@@ -62,7 +62,7 @@ export function StoreHeader() {
               <UserRound className="size-5" />
               <span className="hidden xl:inline">Account</span>
             </Button>
-            <Link href="/cart" className="relative grid size-11 shrink-0 place-items-center rounded-full bg-[#B4232C] text-white shadow-[0_8px_22px_rgba(180,35,44,0.25)] transition-transform duration-150 active:scale-[0.97]" aria-label={`Cart with ${itemCount} items`}>
+            <Link href="/cart" className="relative ml-auto grid size-11 shrink-0 place-items-center rounded-full bg-[#B4232C] text-white shadow-[0_8px_22px_rgba(180,35,44,0.25)] transition-transform duration-150 active:scale-[0.97] md:ml-0" aria-label={`Cart with ${itemCount} items`}>
               <ShoppingBag className="size-5" />
               {itemCount > 0 && <span className="absolute -right-1 -top-1 grid min-w-5 place-items-center rounded-full bg-[#2A7B48] px-1 text-[0.65rem] font-black leading-5 ring-2 ring-white">{itemCount}</span>}
             </Link>
