@@ -8,7 +8,7 @@ import { Link } from "wouter";
 export default function AdminDashboard() {
   const lowStock = products.flatMap((product) => product.variants.filter((variant) => variant.stock <= 9).map((variant) => ({ product, variant }))).slice(0, 4);
   return (
-    <AdminShell title="Good morning, Sayan" subtitle="Here’s what needs your attention across RedVeg today." action={<Link href="/admin/catalog?new=true"><Button className="h-11 rounded-full bg-[#B4232C] px-5 font-black text-white hover:bg-[#951D24]"><Plus className="size-4" /> Add product</Button></Link>}>
+    <AdminShell title="Good morning, Amit" subtitle="Here’s what needs your attention across RedVeg today." action={<Link href="/admin/catalog?new=true"><Button className="h-11 rounded-full bg-[#B4232C] px-5 font-black text-white hover:bg-[#951D24]"><Plus className="size-4" /> Add product</Button></Link>}>
       <div className="grid grid-cols-2 gap-3 sm:gap-4 xl:grid-cols-4">
         {stats.map((stat) => <div key={stat.label} className="rounded-[1.35rem] bg-white p-5 shadow-[0_12px_34px_rgba(61,33,27,.055)] ring-1 ring-black/[0.04]"><div className="flex items-start justify-between"><p className="text-sm font-bold text-muted-foreground">{stat.label}</p><span className={`grid size-9 place-items-center rounded-xl ${stat.tone === "red" ? "bg-[#FBE8E7] text-[#B4232C]" : stat.tone === "green" ? "bg-[#E8F3E5] text-[#267345]" : stat.tone === "amber" ? "bg-[#FFF0D2] text-[#996200]" : "bg-[#EFECE9] text-[#625752]"}`}><TrendingUp className="size-4" /></span></div><p className="mt-5 text-3xl font-black tracking-[-0.035em]">{stat.value}</p><p className="mt-2 text-xs font-bold text-[#267345]">{stat.trend}</p></div>)}
       </div>

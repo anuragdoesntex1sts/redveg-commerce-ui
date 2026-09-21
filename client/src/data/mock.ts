@@ -158,7 +158,7 @@ export const products: Product[] = [
 export const orders: Order[] = [
   {
     id: "RV-1042",
-    customer: "Sayan Roy",
+    customer: "Amit Roy",
     mobile: "+91 98310 48121",
     address: "22 Lake Road, Kalighat, Kolkata",
     pincode: "700029",

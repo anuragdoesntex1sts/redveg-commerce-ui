@@ -44,8 +44,8 @@ export function AdminShell({ children, title, subtitle, action }: { children: Re
       </nav>
       <Link href="/admin/settings" className="flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-bold text-white/60 hover:bg-white/[0.07] hover:text-white"><Settings className="size-[18px]" /> Settings</Link>
       <div className="mt-4 flex items-center gap-3 border-t border-white/10 px-2 pt-5">
-        <Avatar className="size-9"><AvatarFallback className="bg-[#F6DED9] font-black text-[#B4232C]">SR</AvatarFallback></Avatar>
-        <div className="min-w-0 flex-1"><p className="truncate text-sm font-bold">Sayan Roy</p><p className="truncate text-xs text-white/40">Store manager</p></div>
+        <Avatar className="size-9"><AvatarFallback className="bg-[#F6DED9] font-black text-[#B4232C]">AR</AvatarFallback></Avatar>
+        <div className="min-w-0 flex-1"><p className="truncate text-sm font-bold">Amit Roy</p><p className="truncate text-xs text-white/40">Store manager</p></div>
       </div>
     </aside>
   );
