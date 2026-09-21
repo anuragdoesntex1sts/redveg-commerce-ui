@@ -1,0 +1,76 @@
+import { BrandLogo } from "@/components/BrandLogo";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { BarChart3, Bell, ChevronRight, Gift, LayoutDashboard, Menu, Package, Search, Settings, ShoppingBag, Tags, Truck, Users } from "lucide-react";
+import { useState } from "react";
+import { Link, useLocation } from "wouter";
+
+const adminLinks = [
+  { href: "/admin", label: "Overview", icon: LayoutDashboard },
+  { href: "/admin/orders", label: "Orders", icon: ShoppingBag, badge: "6" },
+  { href: "/admin/catalog", label: "Products", icon: Package },
+  { href: "/admin/offers", label: "Offers & combos", icon: Gift },
+  { href: "/admin/coupons", label: "Coupons", icon: Tags },
+  { href: "/admin/delivery", label: "Delivery areas", icon: Truck },
+  { href: "/admin/customers", label: "Customers", icon: Users },
+  { href: "/admin/analytics", label: "Reports", icon: BarChart3 },
+];
+
+export function AdminShell({ children, title, subtitle, action }: { children: React.ReactNode; title: string; subtitle: string; action?: React.ReactNode }) {
+  const [location] = useLocation();
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  const sidebar = (
+    <aside className="flex h-full flex-col bg-[#17110F] px-4 pb-5 pt-6 text-white">
+      <div className="px-2"><BrandLogo inverse /></div>
+      <div className="mx-2 mt-8 rounded-2xl border border-white/10 bg-white/[0.06] p-3.5">
+        <div className="flex items-center justify-between"><span className="text-[0.65rem] font-black uppercase tracking-[0.15em] text-white/45">Store status</span><span className="size-2 rounded-full bg-[#72B556] shadow-[0_0_0_4px_rgba(114,181,86,.12)]" /></div>
+        <p className="mt-2 text-sm font-bold">Open for orders</p>
+        <p className="mt-1 text-xs text-white/45">Kolkata · until 8:00 PM</p>
+      </div>
+      <nav className="mt-6 flex-1 space-y-1.5" aria-label="Admin navigation">
+        {adminLinks.map(({ href, label, icon: Icon, badge }) => {
+          const active = href === "/admin" ? location === href : location.startsWith(href);
+          return (
+            <Link key={href} href={href} onClick={() => setMobileOpen(false)} className={`flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-bold transition ${active ? "bg-[#B4232C] text-white shadow-[0_8px_22px_rgba(180,35,44,.2)]" : "text-white/60 hover:bg-white/[0.07] hover:text-white"}`}>
+              <Icon className="size-[18px]" />
+              <span className="flex-1">{label}</span>
+              {badge && <Badge className="bg-white text-[#B4232C]">{badge}</Badge>}
+              {!badge && active && <ChevronRight className="size-4" />}
+            </Link>
+          );
+        })}
+      </nav>
+      <Link href="/admin/settings" className="flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-bold text-white/60 hover:bg-white/[0.07] hover:text-white"><Settings className="size-[18px]" /> Settings</Link>
+      <div className="mt-4 flex items-center gap-3 border-t border-white/10 px-2 pt-5">
+        <Avatar className="size-9"><AvatarFallback className="bg-[#F6DED9] font-black text-[#B4232C]">SR</AvatarFallback></Avatar>
+        <div className="min-w-0 flex-1"><p className="truncate text-sm font-bold">Sayan Roy</p><p className="truncate text-xs text-white/40">Store manager</p></div>
+      </div>
+    </aside>
+  );
+
+  return (
+    <div className="min-h-screen bg-[#F5F2EE] text-[#251B18] lg:grid lg:grid-cols-[260px_1fr]">
+      <div className="fixed inset-y-0 left-0 z-50 hidden w-[260px] lg:block">{sidebar}</div>
+      {mobileOpen && <div className="fixed inset-0 z-50 lg:hidden"><button className="absolute inset-0 bg-black/45 backdrop-blur-sm" onClick={() => setMobileOpen(false)} aria-label="Close menu" /><div className="relative h-full w-[280px]">{sidebar}</div></div>}
+      <div className="lg:col-start-2">
+        <header className="sticky top-0 z-30 flex h-[72px] items-center gap-3 border-b border-black/5 bg-[#F5F2EE]/90 px-4 backdrop-blur-xl sm:px-7 lg:px-10">
+          <Button variant="ghost" size="icon" className="lg:hidden" onClick={() => setMobileOpen(true)}><Menu className="size-5" /></Button>
+          <div className="relative hidden max-w-sm flex-1 md:block"><Search className="absolute left-3.5 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" /><input className="h-10 w-full rounded-full border border-black/5 bg-white pl-10 pr-4 text-sm outline-none ring-[#B4232C]/20 transition focus:ring-4" placeholder="Search orders, products..." /></div>
+          <div className="ml-auto flex items-center gap-2">
+            <Button variant="ghost" size="icon" className="relative rounded-full bg-white"><Bell className="size-4" /><span className="absolute right-2 top-2 size-1.5 rounded-full bg-[#B4232C]" /></Button>
+            <Link href="/" className="rounded-full bg-white px-4 py-2.5 text-xs font-black text-[#B4232C] shadow-sm ring-1 ring-black/5">View store</Link>
+          </div>
+        </header>
+        <main className="px-4 py-7 sm:px-7 lg:px-10 lg:py-9">
+          <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+            <div><p className="text-xs font-black uppercase tracking-[0.18em] text-[#B4232C]">RedVeg control room</p><h1 className="mt-2 font-display text-3xl font-black tracking-[-0.035em] sm:text-4xl">{title}</h1><p className="mt-2 text-sm text-muted-foreground">{subtitle}</p></div>
+            {action}
+          </div>
+          {children}
+        </main>
+      </div>
+    </div>
+  );
+}
